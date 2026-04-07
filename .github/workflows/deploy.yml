@@ -1,0 +1,24 @@
+name: Angular Auto Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build App
+        run: npm run build -- --configuration production
+
+      - name: Run App
+        run: |
+          pm2 restart angular-app || pm2 start npm --name "angular-app" -- start
