@@ -17,6 +17,7 @@ jobs:
 
       - name: Run App
   run: |
+    cd ~/angular-app
     pm2 delete angular-app || true
-    pm2 start "npm start" --name "angular-app"
+    pm2 start npm --name "angular-app" -- start
     pm2 save
